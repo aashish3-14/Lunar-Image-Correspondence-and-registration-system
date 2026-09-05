@@ -1,0 +1,12 @@
+.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+
+# Generated validation outputs
+data/results/
+data/raw/
+data/processed/
+
+# Nested upstream repository is maintained separately.
+LightGlue/
