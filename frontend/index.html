@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LUCAS | Lunar Registration Control</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail">
+      <div class="brand-mark"><span class="brand-dot"></span><span>LUCAS</span></div>
+      <div class="brand-sub">LUNAR UNIFIED CORRESPONDENCE<br>&amp; ALIGNMENT SYSTEM</div>
+      <div class="rail-rule"></div>
+      <nav class="nav-list" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="register"><span class="nav-icon">▦</span> Register</button>
+        <button class="nav-item" data-view="datasets"><span class="nav-icon">▤</span> Datasets</button>
+        <button class="nav-item" data-view="results"><span class="nav-icon">◈</span> Results</button>
+      </nav>
+      <div class="rail-footer">
+        <div class="status-line"><span class="status-led"></span> SYSTEM ONLINE</div>
+        <div class="rail-caption">AI ENGINE / BLACK BOX<br>LOCAL DEMO NODE</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">MISSION CONTROL <span>/</span> CORRESPONDENCE ANALYSIS</div>
+          <h1>Registration workspace</h1>
+        </div>
+        <div class="top-meta"><span class="signal-bars">▮▮▮</span> CPU READY <span class="top-separator"></span> RUN ID <strong id="run-id">--</strong></div>
+      </header>
+
+      <section id="register-view" class="view active-view">
+        <div class="section-heading">
+          <div><span class="section-kicker">01 / INPUT CONFIGURATION</span><h2>Align two lunar observations</h2></div>
+          <div class="dataset-count"><span id="dataset-count">0</span> DISCOVERED IMAGES</div>
+        </div>
+
+        <div class="selection-grid">
+          <article class="image-panel source-panel">
+            <div class="panel-head"><span class="panel-code">SOURCE / MOVING</span><span class="panel-state">INPUT A</span></div>
+            <div class="preview-frame"><img id="source-preview" alt="Source image preview"><div class="empty-preview" id="source-empty">SELECT A DATASET IMAGE</div></div>
+            <label class="select-label" for="source-select">Source image</label>
+            <select id="source-select"><option>Loading dataset...</option></select>
+            <div class="image-meta" id="source-meta">--</div>
+          </article>
+          <div class="transfer-mark" aria-hidden="true"><span>+</span><div></div><span>→</span></div>
+          <article class="image-panel reference-panel">
+            <div class="panel-head"><span class="panel-code">REFERENCE / FIXED</span><span class="panel-state">INPUT B</span></div>
+            <div class="preview-frame"><img id="reference-preview" alt="Reference image preview"><div class="empty-preview" id="reference-empty">SELECT A DATASET IMAGE</div></div>
+            <label class="select-label" for="reference-select">Reference image</label>
+            <select id="reference-select"><option>Loading dataset...</option></select>
+            <div class="image-meta" id="reference-meta">--</div>
+          </article>
+        </div>
+
+        <div class="action-row">
+          <div class="pipeline-note"><span class="status-led"></span><span id="pipeline-status">READY FOR ANALYSIS</span></div>
+          <button class="register-button" id="register-button"><span class="button-symbol">◎</span> REGISTER IMAGES <span class="button-arrow">↗</span></button>
+        </div>
+        <div class="error-banner" id="error-banner" role="alert"></div>
+
+        <div class="section-heading result-heading">
+          <div><span class="section-kicker">02 / LIVE OUTPUT</span><h2>Registration result</h2></div>
+          <div class="result-badge" id="result-badge">AWAITING RUN</div>
+        </div>
+
+        <div class="metrics-strip" id="metrics-strip">
+          <div class="metric"><span>MATCHES</span><strong data-metric="matches">--</strong></div>
+          <div class="metric"><span>INLIERS</span><strong data-metric="inliers">--</strong></div>
+          <div class="metric"><span>INLIER RATIO</span><strong data-metric="inlier_ratio">--</strong></div>
+          <div class="metric"><span>RMSE</span><strong data-metric="rmse">--</strong><small>PX</small></div>
+          <div class="metric"><span>SPATIAL COVERAGE</span><strong data-metric="spatial_coverage">--</strong></div>
+          <div class="metric"><span>GEOMETRY</span><strong data-metric="geometry_model">--</strong></div>
+        </div>
+
+        <div class="results-grid">
+          <article class="result-visual result-primary"><div class="result-label">REGISTERED IMAGE <span>ENGINE OUTPUT</span></div><div class="result-image-wrap"><img id="registered-image" alt="Registered output"><div class="result-empty">NO ACCEPTED REGISTRATION YET</div></div></article>
+          <article class="result-visual"><div class="result-label">FEATURE CORRESPONDENCES <span>ALL CANDIDATES</span></div><div class="result-image-wrap"><img id="matches-image" alt="Feature correspondence visualization"><div class="result-empty">OUTPUT AWAITING RUN</div></div></article>
+          <article class="result-visual"><div class="result-label">GEOMETRICALLY VERIFIED INLIERS <span>FINAL MASK</span></div><div class="result-image-wrap"><img id="inliers-image" alt="Verified inlier visualization"><div class="result-empty">OUTPUT AWAITING RUN</div></div></article>
+          <article class="quality-card"><div class="result-label">QUALITY GATE <span id="quality-mark">--</span></div><div class="quality-state" id="quality-state">RUN THE ENGINE TO SEE THE DECISION</div><p id="quality-reason">The dashboard reports the existing LUCAS quality gate without altering its decision.</p><div class="quality-detail"><span>MEDIAN ERROR</span><strong data-metric="median_error">--</strong><span>MAX ERROR</span><strong data-metric="max_error">--</strong><span>UNIFORMITY</span><strong data-metric="spatial_uniformity">--</strong></div></article>
+        </div>
+      </section>
+
+      <section id="datasets-view" class="view"><div class="section-heading"><div><span class="section-kicker">DATA INVENTORY</span><h2>Discovered dataset images</h2></div></div><div class="dataset-table" id="dataset-table"></div></section>
+      <section id="results-view" class="view"><div class="section-heading"><div><span class="section-kicker">RESULT ARCHIVE</span><h2>Recent engine outputs</h2></div></div><div class="archive-note">Run registrations from the workspace to populate this view with real output artifacts.</div></section>
+    </main>
+  </div>
+  <script src="/frontend/app.js"></script>
+</body>
+</html>

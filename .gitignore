@@ -5,6 +5,7 @@ __pycache__/
 
 # Generated validation outputs
 data/results/
+data/uploads/
 data/raw/
 data/processed/
 

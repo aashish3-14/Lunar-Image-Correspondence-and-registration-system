@@ -6,3 +6,6 @@ matplotlib
 opencv-python
 albumentations
 pytest
+fastapi
+uvicorn
+python-multipart
